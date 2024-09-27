@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37f99cd5d1c17344b29c4169d970002, type: 3}
+  m_Name: AudioClipsData
+  m_EditorClassIdentifier: 
+  MoveCursor: {fileID: 8300000, guid: 729b6c23857f22a40b6483529c1df94c, type: 3}
+  ClickButton: {fileID: 8300000, guid: e578d941c3f1cc04d8300962fd63fc6b, type: 3}
+  PickUp: {fileID: 8300000, guid: ecbd0bab411c8b647bc818424c8ab004, type: 3}
+  GetQuest: {fileID: 8300000, guid: 7fd5d75d6fdd3cf43a994e1223c04915, type: 3}
+  CorrectItem: {fileID: 8300000, guid: 8a94ef105439c414d89caa7713e04479, type: 3}
+  WrongItem: {fileID: 8300000, guid: 3eaedd5ed08feab45b345567f1df4e8f, type: 3}
+  OpenInventory: {fileID: 8300000, guid: 67e91a0f04ecabc4d93aecb1b4c2d698, type: 3}
+  CloseInventory: {fileID: 8300000, guid: 80469305c420e724696b9282a3afb5c0, type: 3}
+  PauseMenu: {fileID: 8300000, guid: 7ce506034a7331f4db0b699d5325864f, type: 3}
+  AudioMixerGroup: {fileID: 4869745975554458949, guid: 70193a0047b97534e8d5df2e53dbdffd,
+    type: 2}

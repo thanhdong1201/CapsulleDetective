@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dc46f29fe07ad4493530d39cadeb64, type: 3}
+  m_Name: KeyCard
+  m_EditorClassIdentifier: 
+  ItemName: Keycard
+  Description: This keycard can open some door
+  Sprite: {fileID: 21300000, guid: 58e976d047974934aa0ece56088d1ee5, type: 3}
+  Prefab: {fileID: 155207363130320075, guid: 20bc0804c925ae247bf414153af78045, type: 3}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4e58c6735497a4faff32ec53c24d4f, type: 3}
+  m_Name: FindRedAWheel
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: d8f5c791bc838dd43a5213db9ed5713a, type: 2}
+  acceptQuestConversations:
+  - ...
+  - ...
+  finishQuestConversation: Its work!!
+  isQuestFinished: 0
