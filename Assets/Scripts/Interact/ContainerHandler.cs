@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class ContainerHandler : InteractBase
 {
     [SerializeField] private ItemSO item;
+    [SerializeField] private EventChannelSO eventChannelSO;
 
     private void Start()
     {
@@ -11,7 +13,7 @@ public class ContainerHandler : InteractBase
     public override void Interact()
     {
         base.Interact();
-        GameManager.Instance.Inventory.AddItem(item);
+        eventChannelSO.RaiseEvent(item);
         SoundManager.PlaySound(SoundManager.SoundFX.GetQuest);       
     }
 }

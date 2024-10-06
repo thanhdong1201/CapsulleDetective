@@ -27,10 +27,5 @@ public class TurnOnGenerator : MonoBehaviour
             light.enabled = true;
         }
 
-        Robot[] robots = FindObjectsOfType<Robot>();
-        foreach (Robot robot in robots)
-        {
-            robot.enabled = true;
-        }
     }
 }

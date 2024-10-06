@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -8,6 +9,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private CanvasGroup canvasGroup;
 
     public ItemSO Item { get; private set; }
+
     public Transform ParentAfterDrag { get; set; }
     public Transform LastParent { get; set; }
 

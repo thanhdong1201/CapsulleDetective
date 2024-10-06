@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InteractBase : MonoBehaviour, IInteract

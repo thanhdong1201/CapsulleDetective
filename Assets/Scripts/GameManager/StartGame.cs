@@ -1,11 +1,22 @@
+using System.Collections;
 using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-
+    [SerializeField] private InputReaderSO input;
+    [SerializeField] private GameObject startCamera;
+    private float time = 1.0f;
     private void Start()
     {
-        Transform playerGameObject = Instantiate(player, transform.position, Quaternion.identity);
+        input.DisableAllInput(); 
+        startCamera.SetActive(true);
+        StartCoroutine("WaitToStart");
+    }
+    private IEnumerator WaitToStart()
+    {
+        yield return new WaitForSeconds(time);
+        startCamera.SetActive(false);
+        yield return new WaitForSeconds(time);
+        input.SetGamePlayInput();
     }
 }

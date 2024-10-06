@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +6,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private InputReaderSO input;
     [SerializeField] private SettingsUI SettingsUI;
+    [SerializeField] private GameObject startCamera;
+    [SerializeField] private GameObject menuUI;
 
     private void Awake()
     {

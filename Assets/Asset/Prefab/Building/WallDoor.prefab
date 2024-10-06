@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7318943502508148650}
   - component: {fileID: 6479649416677859416}
   - component: {fileID: 4492677479923853758}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 65
+  m_VersionIndex: 71
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 1480986379339550292}
   - component: {fileID: 6878021368842740857}
   - component: {fileID: 1777889420367757164}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WallDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,8 +1248,8 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!4 &8125540055658774953
 Transform:
   m_ObjectHideFlags: 0

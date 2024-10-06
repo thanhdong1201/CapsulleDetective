@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -9,28 +10,33 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private InputReaderSO input;
     [SerializeField] private GameObject inventoryUIObject;
-    private Inventory inventory;
-    private QuestUI questUI;
+    [SerializeField] private Inventory inventory;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private float fadeTime = 0.25f;
     private bool canAction;
 
-    private void Start()
+    private void OnEnable()
     {
-        inventory = GameManager.Instance.Inventory; 
-        canvasGroup = GetComponent<CanvasGroup>();
-        rectTransform = GetComponent<RectTransform>();
-
-        questUI = GameManager.Instance.QuestUI;
-        questUI.OnEnterQuestDialog += HandleShowInventory;
-
+        Inventory.OnInventory += OnSetItem;
+        QuestUI.OnEnterQuestDialog += HandleShowInventory;
         input.OpenInventoryEvent += HandleShowInventory;
         input.CLoseInventoryEvent += HandleHideInventory;
-
+        //DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
+    }
+    private void OnDisable()
+    {
+        Inventory.OnInventory -= OnSetItem;
+        QuestUI.OnEnterQuestDialog -= HandleShowInventory;
+        input.OpenInventoryEvent -= HandleShowInventory;
+        input.CLoseInventoryEvent -= HandleHideInventory;
+    }
+    private void Start()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
         canAction = true;
     }
-
     public void UseSelectedItemButton()
     {
         inventory.UseSelectedItem();
@@ -41,12 +47,12 @@ public class InventoryUI : MonoBehaviour
         nameText.SetText("");
         descriptionText.SetText("");
     }
-    public void SetItemData(ItemSO item)
+    private void OnSetItem(ItemSO itemSO)
     {
-        if (item != null)
+        if (itemSO != null)
         {
-            nameText.SetText(item.ItemName);
-            descriptionText.SetText(item.Description);
+            nameText.SetText(itemSO.ItemName);
+            descriptionText.SetText(itemSO.Description);
         }
         else
         {
@@ -54,15 +60,9 @@ public class InventoryUI : MonoBehaviour
             descriptionText.SetText("");
         }
     }
-    private IEnumerator ResetAction()
-    {
-        canAction = false;
-        yield return new WaitForSeconds(fadeTime + 0.1f);
-        canAction = true;
-    }
     public void HandleShowInventory()
     {
-        if (!canAction || inventoryUIObject == null) return;
+        if (!canAction) return;
         StartCoroutine("ResetAction");
         SoundManager.PlaySound(SoundManager.SoundFX.OpenInventory);
         inventoryUIObject.SetActive(true);
@@ -72,18 +72,24 @@ public class InventoryUI : MonoBehaviour
     }
     public void HandleHideInventory()
     {
-        if (!canAction || inventoryUIObject == null) return;
+        if (!canAction) return;
         StartCoroutine("ResetAction");
         SoundManager.PlaySound(SoundManager.SoundFX.CloseInventory);
-        StartCoroutine("WaitASec");
+        //StartCoroutine("WaitASec");
         rectTransform.transform.localPosition = new Vector3(0f, 0f, 0f);
         rectTransform.DOAnchorPos(new Vector2(-1000f, 0f), fadeTime, false).SetEase(Ease.OutCirc);
         input.SetGamePlayInput();
+        inventoryUIObject.SetActive(false);
     }
-    private IEnumerator WaitASec()
+    private IEnumerator ResetAction()
     {
         canAction = false;
         yield return new WaitForSeconds(fadeTime + 0.1f);
-        inventoryUIObject.SetActive(false);
+        canAction = true;
     }
+    //private IEnumerator WaitASec()
+    //{
+    //    yield return new WaitForSeconds(fadeTime + 0.1f);
+    //    inventoryUIObject.SetActive(false);
+    //}
 }

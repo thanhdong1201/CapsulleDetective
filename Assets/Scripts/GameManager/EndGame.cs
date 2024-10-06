@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
 {
+    public static event Action OnEndGame;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            GameManager.Instance.UIManager.EndGame();
-            StartCoroutine("WaitASec");
+            OnEndGame?.Invoke();
+            //StartCoroutine("WaitASec");
         }
     }
     private IEnumerator WaitASec()

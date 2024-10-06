@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 1094361702764199100}
   - component: {fileID: 7370833121114118766}
   - component: {fileID: 1252050817771285253}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StuckDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2930,7 +2930,7 @@ GameObject:
   - component: {fileID: 4050862754896493533}
   - component: {fileID: 7461740460546993523}
   - component: {fileID: 6025737608402103264}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

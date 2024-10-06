@@ -10,18 +10,22 @@ public class QuizzManager : MonoBehaviour
     [SerializeField] private GameObject combineButton;
     [SerializeField] private GameObject takeButton;
     [SerializeField] private RecipeSO RecipeSO;
-
+    [SerializeField] private EventChannelSO eventChannelSO;
+    InventoryItem inventoryItem1;
+    InventoryItem inventoryItem2;
     private InventoryItem combineItem;
     private bool canCombine;
     private bool CanCombine()
     {
-        if (inventorySlots[0].InventoryItem == null || inventorySlots[1].InventoryItem == null)
+        inventoryItem1 = inventorySlots[0].GetComponentInChildren<InventoryItem>();
+        inventoryItem2 = inventorySlots[1].GetComponentInChildren<InventoryItem>();
+        if (inventoryItem1 == null || inventoryItem2 == null)
         {
             canCombine = false;
         }
-        if (inventorySlots[0].InventoryItem != null && inventorySlots[1].InventoryItem != null)
+        if (inventoryItem1 != null || inventoryItem2 != null)
         {
-            if (inventorySlots[0].InventoryItem.Item == RecipeSO.FirstRequireItem && inventorySlots[1].InventoryItem.Item == RecipeSO.SecondRequireItem)
+            if (inventoryItem1.Item == RecipeSO.FirstRequireItem && inventoryItem2.Item == RecipeSO.SecondRequireItem)
             {
                 canCombine = true;
             }
@@ -39,9 +43,11 @@ public class QuizzManager : MonoBehaviour
             InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
             inventoryItem.InitializeItem(RecipeSO.FinalItem);
             combineItem = inventoryItem;
+            Destroy(inventoryItem1.gameObject);
+            Destroy(inventoryItem2.gameObject);
             foreach (InventorySlot slot in inventorySlots)
             {
-                Destroy(slot.InventoryItem.gameObject);
+                eventChannelSO.RemoveItemEvent(slot.GetComponentInChildren<InventoryItem>().Item);
             }
             Debug.Log("Correct!");
         }
@@ -55,7 +61,7 @@ public class QuizzManager : MonoBehaviour
         ItemSO item = combineSlot.GetComponentInChildren<InventoryItem>().Item;
         if (item != null)
         {
-            GameManager.Instance.Inventory.AddItem(item);
+            eventChannelSO.RaiseEvent(item);
             Destroy(combineItem.gameObject);
             takeButton.SetActive(false);
             combineButton.SetActive(true);

@@ -2,31 +2,26 @@ using UnityEngine;
 
 public class QuestReceiver : MonoBehaviour
 {
-    public QuestGiver QuestGiver {  get; private set; }
-    private QuestUI questUI;
-
-    private void Start()
+    public QuestGiver QuestGiver {  get; private set; } 
+    [SerializeField] private EventChannelSO eventChannelSO;
+    private void OnEnable()
     {
-        questUI = GameManager.Instance.QuestUI;
-        GameManager.Instance.QuestUI.OnFinishQuestDialog += HandleGetReward;
+        eventChannelSO.onQuestGiver.AddListener(SetQuestGiver);
+        QuestUI.OnFinishQuestDialog += HandleGetReward;
     }
-    public void GetQuest(QuestGiver questGiver)
+    private void OnDisable()
+    {
+        eventChannelSO.onQuestGiver.RemoveListener(SetQuestGiver);
+        QuestUI.OnFinishQuestDialog -= HandleGetReward;
+    }
+    private void SetQuestGiver(QuestGiver questGiver)
     {
         QuestGiver = questGiver;
-        if (questGiver.QuestSO.IsQuestFinished()) return;
-        if (questGiver.QuestSO.GetItem() != null) 
-        {         
-            questUI.SetQuest(questGiver);
-        }
-        if (questGiver.QuestSO.GetItem() == null)
-        {
-            questUI.SetDialog(QuestGiver.QuestSO.GetDialog());
-        }
     }
     private void HandleGetReward()
     {
         if (QuestGiver.QuestSO.GetItemReward() == null) return;
-        GameManager.Instance.Inventory.AddItem(QuestGiver.QuestSO.GetItemReward());
-        QuestGiver.SetQuestFinish();
+        eventChannelSO.RaiseEvent(QuestGiver.QuestSO.GetItemReward());
+        QuestGiver.gameObject.SetActive(false);
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,13 +12,23 @@ public class UIManager : MonoBehaviour
     public EndGameUI EndGameUI;
     private bool canAction;
 
-    private void Start()
+    private void OnEnable()
     {
         input.PauseEvent += Pause;
         input.ResumeEvent += Resume;
-
+        EndGame.OnEndGame += EnableEndGame;
+    }
+    private void OnDisable()
+    {
+        input.PauseEvent -= Pause;
+        input.ResumeEvent -= Resume;
+        EndGame.OnEndGame -= EnableEndGame;
+    }
+    private void Start()
+    {
         canAction = true;
     }
+
     //Pause and Resume
     private void Pause()
     {
@@ -42,7 +53,7 @@ public class UIManager : MonoBehaviour
         canAction = true;
     }
     //EndGame
-    public void EndGame()
+    public void EnableEndGame()
     {
         if (EndGameUI == null) return;
         EndGameUI.ShowEndGameUI();
@@ -50,6 +61,11 @@ public class UIManager : MonoBehaviour
         //Time.timeScale = 0f;
     }
     //Menu
+    public void TryAgain()
+    {
+        SceneManager.LoadScene("MainGame");
+        input.SetGamePlayInput();
+    }
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");

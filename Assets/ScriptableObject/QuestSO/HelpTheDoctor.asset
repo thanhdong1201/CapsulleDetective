@@ -18,5 +18,5 @@ MonoBehaviour:
   - Hey there, boy! I'm missing some items to fix my machine. Help me find the repair
     parts, and I promise to reward you handsomely.
   finishQuestConversation: OMG! You just save my life. How can i pay back?
-  isQuestFinished: 0
+  isQuestFinished: 1
   itemReward: {fileID: 11400000, guid: 136fcd9cb40006640895cdbaf35193ba, type: 2}

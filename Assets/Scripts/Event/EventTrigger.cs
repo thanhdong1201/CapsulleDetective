@@ -18,7 +18,7 @@ public class EventTrigger : MonoBehaviour
         if (other.CompareTag("Player") && !alreadyActive)
         {
             alreadyActive = true;
-            eventSetup.ActiveEvent();
+            //eventSetup.ActiveEvent();
         }
     }
 }

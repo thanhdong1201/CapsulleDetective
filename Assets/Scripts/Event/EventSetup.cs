@@ -17,11 +17,13 @@ public class EventSetup : MonoBehaviour
     }
     public void ActiveEvent()
     {
-        OnPrepareEvent?.Invoke();  
-        eventCamera.SetEventCamera(target);
+        OnPrepareEvent?.Invoke();
+        if (target != null)
+        {
+            eventCamera.SetEventCamera(target);
+        }
         StartCoroutine("WaitASecBeforeActive");
     }
-
     private IEnumerator WaitASecBeforeActive()
     {
         yield return new WaitForSeconds(prepareWaitTime);

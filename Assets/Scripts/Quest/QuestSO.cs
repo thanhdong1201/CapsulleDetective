@@ -18,5 +18,9 @@ public class QuestSO : ScriptableObject
     public string GetFinishQuestConversationText() { return finishQuestConversation; }
     public bool IsQuestFinished() { return isQuestFinished; }
     public void SetQuestFinished()  {   isQuestFinished = true; }
-    public void ResetQuest()    {   isQuestFinished = false;    }
+
+    private void OnEnable()
+    {
+        isQuestFinished = false;
+    }
 }

@@ -30,9 +30,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        input.SetGamePlayInput();
+        controller = GetComponent<CharacterController>();
         hasAnimator = animator != null;
         input.MoveEvent += MoveHandle;
+        Health.OnPlayerDie += DisablePlayer;
+    }
+    private void DisablePlayer()
+    {
+        input.SetUIInput();
+        controller.enabled = false;
+        enabled = false;
+        Health.OnPlayerDie -= DisablePlayer;
     }
     private void MoveHandle(Vector2 direction)
     {

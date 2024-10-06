@@ -13,14 +13,15 @@ public enum DialogType
 }
 public class QuestUI : MonoBehaviour
 {
-    public Action OnFinishDialog;
-    public Action OnEnterQuestDialog;
-    public Action OnFinishQuestDialog;
+    public static Action OnFinishDialog;
+    public static Action OnEnterQuestDialog;
+    public static Action OnFinishQuestDialog;
 
     [SerializeField] private TextMeshProUGUI conversationText;
     [SerializeField] private GameObject questUIObject;
+    [SerializeField] private QuestReceiver questReceiver;
     [SerializeField] private InputReaderSO input;
-    private QuestReceiver questReceiver;
+    [SerializeField] private EventChannelSO eventChannelSO;
 
     private float fadeTime = 1.0f;
     private CanvasGroup canvasGroup;
@@ -29,14 +30,40 @@ public class QuestUI : MonoBehaviour
     private DialogSO dialogSO;
     private int index;
     private DialogType dialogType;
+
+    private void OnEnable()
+    {
+        eventChannelSO.onQuestGiver.AddListener(SetQuestGiver);
+        input.NextEvent += PlayDialog;
+        Inventory.OnDialogType += SetDialogType;
+    }
+    private void OnDisable()
+    {
+        eventChannelSO.onQuestGiver.RemoveListener(SetQuestGiver);
+        input.NextEvent -= PlayDialog;
+        Inventory.OnDialogType -= SetDialogType;
+    }
     private void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
-        input.NextEvent += PlayDialog;
-        questReceiver = GameManager.Instance.QuestReceiver;
     }
-    public void SetDialogType(DialogType dialog)
+    private void SetQuestGiver(QuestGiver questGiver)
+    {
+        QuestSO questSO = questGiver.QuestSO;
+        if (questSO.IsQuestFinished()) return;
+        if (questSO.GetItem() != null)
+        {
+            this.questSO = questSO;
+            SetDialogType(DialogType.EnterQuest);
+        }
+        if (questSO.GetItem() == null)
+        {
+            this.dialogSO = questSO.GetDialog();
+            SetDialogType(DialogType.Dialog);
+        }       
+    }
+    private void SetDialogType(DialogType dialog)
     {
         dialogType = dialog;
         index = -1;
@@ -47,11 +74,11 @@ public class QuestUI : MonoBehaviour
     {
         questUIObject.SetActive(true);
         canvasGroup.alpha = 0.0f;
-        rectTransform.transform.localPosition = new Vector3(0f, -1000f, 0f);
-        rectTransform.DOAnchorPos(new Vector2(0f, 0f), fadeTime, false).SetEase(Ease.OutExpo);
         canvasGroup.DOFade(1, fadeTime);
         canvasGroup.transform.localScale = Vector3.zero;
         canvasGroup.transform.DOScale(1f, 0.75f).SetEase(Ease.OutBounce);
+        rectTransform.transform.localPosition = new Vector3(0f, -1000f, 0f);
+        rectTransform.DOAnchorPos(new Vector2(0f, 0f), fadeTime, false).SetEase(Ease.OutExpo);
         input.SetDialogueInput();
     }
     private void HideDialog()
@@ -59,8 +86,8 @@ public class QuestUI : MonoBehaviour
         switch (dialogType)
         {
             case DialogType.Dialog:
-                OnFinishQuestDialog?.Invoke();
-                input.SetGamePlayInput(); 
+                OnFinishQuestDialog.Invoke();
+                input.SetGamePlayInput();
                 break;
             case DialogType.EnterQuest:
                 if (!questSO.IsQuestFinished()) { OnEnterQuestDialog?.Invoke(); }
@@ -74,7 +101,6 @@ public class QuestUI : MonoBehaviour
                 input.SetGamePlayInput();
                 break;
         }
-
         questUIObject.SetActive(false);
     }
     private IEnumerator WaitASec()
@@ -82,23 +108,13 @@ public class QuestUI : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         HideDialog();
     }
-    public void SetQuest(QuestGiver questGiver)
-    {
-        this.questSO = questGiver.QuestSO;
-        SetDialogType(DialogType.EnterQuest);
-    }
-    public void SetDialog(DialogSO dialogSO)
-    {
-        this.dialogSO = dialogSO;
-        SetDialogType(DialogType.Dialog);
-    } 
-
     private void PlayDialog()
     {
         index++;
         switch (dialogType)
         {
             case DialogType.Dialog:
+                if(dialogSO == null) return;
                 if (index >= dialogSO.GetDialogs().Length) HideDialog();
                 else conversationText.text = dialogSO.GetDialogs()[index];
                 break;
