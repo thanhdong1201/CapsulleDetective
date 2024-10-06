@@ -8,20 +8,15 @@ public class Inventory : MonoBehaviour
     public static event Action<DialogType> OnDialogType;
 
     [SerializeField] private Dictionary<ItemSO, InventorySlot> itemDictionary;
-
     [SerializeField] private List<InventorySlot> InventorySlots;
     [SerializeField] private List<ItemSO> Items;
     [SerializeField] private GameObject inventoryItemPrefab;
     [SerializeField] private InventoryUI inventoryUI;
-    private QuestReceiver questReceiver;
-    private InventorySlot currentInventorySlot;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private EventChannelSO eventChannelSO;
+    private QuestReceiver questReceiver;
+    private InventorySlot currentInventorySlot;
 
-    private void AddItemToInventory(ItemSO item)
-    {
-        AddItem(item);
-    }
     private void OnEnable()
     {
         foreach (InventorySlot slot in InventorySlots) 
@@ -53,7 +48,7 @@ public class Inventory : MonoBehaviour
     }
     private void Update()
     {
-        UpdateInventory();
+        //UpdateInventory();
     }
     private void UpdateInventory()
     {
@@ -83,8 +78,10 @@ public class Inventory : MonoBehaviour
         InventoryItem inventoryItem = currentInventorySlot.GetComponentInChildren<InventoryItem>();
         if (inventoryItem != null) OnInventory?.Invoke(inventoryItem.Item);
         if (inventoryItem == null) OnInventory?.Invoke(null);
-
-        UpdateInventory();
+    }
+    private void AddItemToInventory(ItemSO item)
+    {
+        AddItem(item);
     }
     private bool AddItem(ItemSO item)
     {
