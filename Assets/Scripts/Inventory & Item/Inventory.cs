@@ -94,20 +94,13 @@ public class Inventory : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                if (itemDictionary.ContainsKey(item))
+                if (!itemDictionary.ContainsKey(item))
                 {
-                    // Nếu item tồn tại
-                }
-                else
-                {
-                    // Nếu item chưa tồn tại, tạo mới và thêm vào dictionary
                     GameObject newItemGO = Instantiate(inventoryItemPrefab, slot.transform);
                     InventoryItem inventoryItem = newItemGO.GetComponent<InventoryItem>();
                     inventoryItem.InitializeItem(item);
                     itemDictionary.Add(item, slot);
-                    Debug.Log("Add " + item + " to inventory.");
                 }
-                UpdateInventory();
                 return true;
             }
         }
@@ -119,38 +112,30 @@ public class Inventory : MonoBehaviour
         {
             InventorySlot slot = itemDictionary[item];
             itemDictionary.Remove(item);
-            Debug.Log("Xóa " + item + " khỏi inventory.");
-        }
-        else
-        {
-            Debug.Log("Không tìm thấy item " + item + " để xóa.");
         }
     }
     public void UseSelectedItem()
     {
         InventoryItem inventoryItem = currentInventorySlot.InventoryItem;
 
-        if (inventoryItem != null)
+        if (inventoryItem == null || questReceiver.QuestGiver.QuestSO == null) return;
+
+        QuestSO questSO = questReceiver.QuestGiver.QuestSO;
+        uiManager.InventoryUI.HandleHideInventory();
+
+        if (inventoryItem.Item == questSO.GetItem())
         {
-            if (questReceiver.QuestGiver.QuestSO == null) return;
-
-            QuestSO questSO = questReceiver.QuestGiver.QuestSO;
-            uiManager.InventoryUI.HandleHideInventory();
-
-            if (inventoryItem.Item == questSO.GetItem())
-            {
-                RemoveItem(inventoryItem.Item);
-                Destroy(inventoryItem.gameObject);
-                OnDialogType?.Invoke(DialogType.CorrectQuest);
-                SoundManager.PlaySound(SoundManager.SoundFX.CorrectItem);
-                questReceiver.QuestGiver.EventSetup?.ActiveEvent();
-                questReceiver.QuestGiver.SetQuestFinish();
-            }
-            else
-            {
-                OnDialogType?.Invoke(DialogType.WrongQuest);
-                SoundManager.PlaySound(SoundManager.SoundFX.WrongItem);
-            }
+            RemoveItem(inventoryItem.Item);
+            Destroy(inventoryItem.gameObject);
+            OnDialogType?.Invoke(DialogType.CorrectQuest);
+            SoundManager.PlaySound(SoundManager.SoundFX.CorrectItem);
+            questReceiver.QuestGiver.EventSetup?.ActiveEvent();
+            questReceiver.QuestGiver.SetQuestFinish();
+        }
+        else
+        {
+            OnDialogType?.Invoke(DialogType.WrongQuest);
+            SoundManager.PlaySound(SoundManager.SoundFX.WrongItem);
         }
     }
 }
