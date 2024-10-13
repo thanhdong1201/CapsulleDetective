@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestSO: {fileID: 0}
-  eventChannelSO: {fileID: 11400000, guid: 6be0218d487744643b26282687832ff7, type: 2}
+  getQuestGiverEvent: {fileID: 11400000, guid: cfe1c139fb22dc24a9cd4f530c812ee5, type: 2}
 --- !u!114 &3104852305877132043
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private InputReaderSO input;
-    public InventoryUI InventoryUI;
     public SettingsUI SettingsUI;
     public PauseUI PauseUI;
     public EndGameUI EndGameUI;

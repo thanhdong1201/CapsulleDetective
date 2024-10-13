@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4e58c6735497a4faff32ec53c24d4f, type: 3}
+  m_Name: Open stuck door
+  m_EditorClassIdentifier: 
+  QuestName: Open stuck door
+  ItemSO: {fileID: 11400000, guid: 4a5f413cf944e7a41906900b7f7301b3, type: 2}
+  DialogSO: {fileID: 11400000, guid: 2c8e95abb08e4134395ce1547a4aadd8, type: 2}
+  ItemReward: {fileID: 0}

@@ -10,7 +10,8 @@ public class QuizzManager : MonoBehaviour
     [SerializeField] private GameObject combineButton;
     [SerializeField] private GameObject takeButton;
     [SerializeField] private RecipeSO RecipeSO;
-    [SerializeField] private EventChannelSO eventChannelSO;
+    [SerializeField] private ItemEventChannelSO onAddItem;
+    [SerializeField] private ItemEventChannelSO onRemoveItem;
     InventoryItem inventoryItem1;
     InventoryItem inventoryItem2;
     private InventoryItem combineItem;
@@ -47,7 +48,7 @@ public class QuizzManager : MonoBehaviour
             Destroy(inventoryItem2.gameObject);
             foreach (InventorySlot slot in inventorySlots)
             {
-                eventChannelSO.RemoveItemEvent(slot.GetComponentInChildren<InventoryItem>().Item);
+                onRemoveItem.RaiseEvent(slot.GetComponentInChildren<InventoryItem>().Item);
             }
             Debug.Log("Correct!");
         }
@@ -61,7 +62,7 @@ public class QuizzManager : MonoBehaviour
         ItemSO item = combineSlot.GetComponentInChildren<InventoryItem>().Item;
         if (item != null)
         {
-            eventChannelSO.RaiseEvent(item);
+            onAddItem.RaiseEvent(item);
             Destroy(combineItem.gameObject);
             takeButton.SetActive(false);
             combineButton.SetActive(true);

@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    public Transform target;
+    public TransformTargetSO targetTransform;
+    public Transform target {  get; private set; }
     public Transform transformPosition;
     public float radius;
     [Range(0,360)] public float angle;
     public LayerMask targetMask;
     public LayerMask obstructionMask;
     public bool CanSeePlayer {  get; private set; }
+
     private void Start()
     {
+        //target = targetTransform.GetTargetTransform();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(FOVRoutine());
     }
     private void Update()

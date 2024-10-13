@@ -91,7 +91,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenInventory"",
+                    ""name"": ""Tab"",
                     ""type"": ""Button"",
                     ""id"": ""53bab68e-4d3d-4ef4-94fd-c8e6e3f7b86e"",
                     ""expectedControlType"": ""Button"",
@@ -284,7 +284,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse;KeyboardMouse"",
-                    ""action"": ""OpenInventory"",
+                    ""action"": ""Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -343,7 +343,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CloseInventory"",
+                    ""name"": ""CloseTab"",
                     ""type"": ""Button"",
                     ""id"": ""e73c23ea-b05f-4c2e-90fc-1f69d6ac6cc5"",
                     ""expectedControlType"": ""Button"",
@@ -371,7 +371,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
-                    ""action"": ""CloseInventory"",
+                    ""action"": ""CloseTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -401,14 +401,14 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Gameplay_Drop = m_Gameplay.FindAction("Drop", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_InteractAlternate = m_Gameplay.FindAction("InteractAlternate", throwIfNotFound: true);
-        m_Gameplay_OpenInventory = m_Gameplay.FindAction("OpenInventory", throwIfNotFound: true);
+        m_Gameplay_Tab = m_Gameplay.FindAction("Tab", throwIfNotFound: true);
         // Dialogue
         m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
         m_Dialogue_Next = m_Dialogue.FindAction("Next", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
-        m_UI_CloseInventory = m_UI.FindAction("CloseInventory", throwIfNotFound: true);
+        m_UI_CloseTab = m_UI.FindAction("CloseTab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -477,7 +477,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Drop;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_InteractAlternate;
-    private readonly InputAction m_Gameplay_OpenInventory;
+    private readonly InputAction m_Gameplay_Tab;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -489,7 +489,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         public InputAction @Drop => m_Wrapper.m_Gameplay_Drop;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @InteractAlternate => m_Wrapper.m_Gameplay_InteractAlternate;
-        public InputAction @OpenInventory => m_Wrapper.m_Gameplay_OpenInventory;
+        public InputAction @Tab => m_Wrapper.m_Gameplay_Tab;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -520,9 +520,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @InteractAlternate.started += instance.OnInteractAlternate;
             @InteractAlternate.performed += instance.OnInteractAlternate;
             @InteractAlternate.canceled += instance.OnInteractAlternate;
-            @OpenInventory.started += instance.OnOpenInventory;
-            @OpenInventory.performed += instance.OnOpenInventory;
-            @OpenInventory.canceled += instance.OnOpenInventory;
+            @Tab.started += instance.OnTab;
+            @Tab.performed += instance.OnTab;
+            @Tab.canceled += instance.OnTab;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -548,9 +548,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @InteractAlternate.started -= instance.OnInteractAlternate;
             @InteractAlternate.performed -= instance.OnInteractAlternate;
             @InteractAlternate.canceled -= instance.OnInteractAlternate;
-            @OpenInventory.started -= instance.OnOpenInventory;
-            @OpenInventory.performed -= instance.OnOpenInventory;
-            @OpenInventory.canceled -= instance.OnOpenInventory;
+            @Tab.started -= instance.OnTab;
+            @Tab.performed -= instance.OnTab;
+            @Tab.canceled -= instance.OnTab;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -619,13 +619,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Resume;
-    private readonly InputAction m_UI_CloseInventory;
+    private readonly InputAction m_UI_CloseTab;
     public struct UIActions
     {
         private @GameInput m_Wrapper;
         public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
-        public InputAction @CloseInventory => m_Wrapper.m_UI_CloseInventory;
+        public InputAction @CloseTab => m_Wrapper.m_UI_CloseTab;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -638,9 +638,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Resume.started += instance.OnResume;
             @Resume.performed += instance.OnResume;
             @Resume.canceled += instance.OnResume;
-            @CloseInventory.started += instance.OnCloseInventory;
-            @CloseInventory.performed += instance.OnCloseInventory;
-            @CloseInventory.canceled += instance.OnCloseInventory;
+            @CloseTab.started += instance.OnCloseTab;
+            @CloseTab.performed += instance.OnCloseTab;
+            @CloseTab.canceled += instance.OnCloseTab;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -648,9 +648,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Resume.started -= instance.OnResume;
             @Resume.performed -= instance.OnResume;
             @Resume.canceled -= instance.OnResume;
-            @CloseInventory.started -= instance.OnCloseInventory;
-            @CloseInventory.performed -= instance.OnCloseInventory;
-            @CloseInventory.canceled -= instance.OnCloseInventory;
+            @CloseTab.started -= instance.OnCloseTab;
+            @CloseTab.performed -= instance.OnCloseTab;
+            @CloseTab.canceled -= instance.OnCloseTab;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -686,7 +686,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         void OnDrop(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnInteractAlternate(InputAction.CallbackContext context);
-        void OnOpenInventory(InputAction.CallbackContext context);
+        void OnTab(InputAction.CallbackContext context);
     }
     public interface IDialogueActions
     {
@@ -695,6 +695,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnResume(InputAction.CallbackContext context);
-        void OnCloseInventory(InputAction.CallbackContext context);
+        void OnCloseTab(InputAction.CallbackContext context);
     }
 }

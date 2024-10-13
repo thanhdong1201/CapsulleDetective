@@ -5,7 +5,7 @@ using System;
 
 public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
-    public event Action<InventorySlot> OnInventorySlot;
+    [SerializeField] private InventorySlotEventChannelSO chooseInventorySlotEvent;
     public Image Image;
     public InventoryItem InventoryItem {  get; private set; }
 
@@ -24,7 +24,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             InventoryItem = pointerEventData.pointerDrag.GetComponent<InventoryItem>();
             InventoryItem.ParentAfterDrag = transform;        
         }
-        OnInventorySlot?.Invoke(this);
+        chooseInventorySlotEvent.RaiseEvent(this);
     }
     public void OnPointerClick(PointerEventData pointerEventData)
     {
@@ -35,6 +35,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
                 InventoryItem = pointerEventData.pointerDrag.GetComponent<InventoryItem>();
             }
         }
-        OnInventorySlot?.Invoke(this);
+        chooseInventorySlotEvent.RaiseEvent(this);
     }
 }

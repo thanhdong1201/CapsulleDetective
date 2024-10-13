@@ -15,4 +15,4 @@ MonoBehaviour:
   ItemName: Crowbar
   Description: I can use it to break the door?
   Sprite: {fileID: 21300000, guid: 9f1989037a4f7424891dc746b9074d13, type: 3}
-  Prefab: {fileID: 6391818120175901379, guid: 8dbdc469a8cb6de41b9c3c10e2e38220, type: 3}
+  Prefab: {fileID: 8380392280741287576, guid: 8dbdc469a8cb6de41b9c3c10e2e38220, type: 3}

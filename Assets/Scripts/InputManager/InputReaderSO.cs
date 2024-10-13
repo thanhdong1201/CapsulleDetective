@@ -69,8 +69,8 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions, GameI
     public event Action DropEvent;
     public event Action RightMouseEvent;
     public event Action RightMouseCanceledEvent;
-    public event Action OpenInventoryEvent;
-    public event Action CLoseInventoryEvent;
+    public event Action TabEvent;
+    public event Action CLoseTabEvent;
 
     public event Action PauseEvent;
 
@@ -141,19 +141,19 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions, GameI
             //SetUIInput();
         }
     }
-    public void OnOpenInventory(InputAction.CallbackContext context)
+    public void OnTab(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            OpenInventoryEvent?.Invoke();
+            TabEvent?.Invoke();
             //SetUIInput();
         }
     }
-    public void OnCloseInventory(InputAction.CallbackContext context)
+    public void OnCloseTab(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            CLoseInventoryEvent?.Invoke();
+            CLoseTabEvent?.Invoke();
             //SetGamePlayInput();
         }
     }
@@ -194,5 +194,4 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions, GameI
     {
         CameraMoveEvent?.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
     }
-
 }

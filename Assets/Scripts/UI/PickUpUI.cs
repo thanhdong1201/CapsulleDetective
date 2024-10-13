@@ -6,7 +6,7 @@ using System.Collections;
 public class PickUpUI : MonoBehaviour
 {
     [SerializeField] private Image itemImage;
-    [SerializeField] private EventChannelSO eventChannelSO;
+    [SerializeField] private ItemEventChannelSO onAddItem;
 
     private float fadeTime = 0.5f;
     private CanvasGroup canvasGroup;
@@ -14,12 +14,11 @@ public class PickUpUI : MonoBehaviour
 
     private void OnEnable()
     {
-        eventChannelSO.onItemPickedUp.AddListener(AddItem);
-        //DOTween.Init(true, true, LogBehaviour.ErrorsOnly);
+        onAddItem.OnEventRaised += AddItem;
     }
     private void OnDisable()
     {
-        eventChannelSO.onItemPickedUp.RemoveListener(AddItem);
+        onAddItem.OnEventRaised -= AddItem;
     }
     private void Start()
     {

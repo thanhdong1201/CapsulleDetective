@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dc46f29fe07ad4493530d39cadeb64, type: 3}
   m_Name: FlashLight
   m_EditorClassIdentifier: 
-  itemName: Flashlight
-  sprite: {fileID: 21300000, guid: 8e4d3e69f73faaf489b2145f2d502e60, type: 3}
-  prefab: {fileID: 5811247455648141251, guid: 06ac631f9c9b4eb4e93631d70fbace25, type: 3}
+  ItemName: Flashlight
+  Description: I can use it to light up the path
+  Sprite: {fileID: 21300000, guid: 8e4d3e69f73faaf489b2145f2d502e60, type: 3}
+  Prefab: {fileID: 0}

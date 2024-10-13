@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4e58c6735497a4faff32ec53c24d4f, type: 3}
+  m_Name: Disable electric fence
+  m_EditorClassIdentifier: 
+  QuestName: Disable electric fence
+  ItemSO: {fileID: 11400000, guid: 0fe6e277b96a185459548dd7ab675d33, type: 2}
+  DialogSO: {fileID: 11400000, guid: 0e677e295e439f04eb466c5da6933649, type: 2}
+  ItemReward: {fileID: 0}

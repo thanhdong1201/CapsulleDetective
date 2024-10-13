@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd6883415dd2c84196fcbdb30928e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventChannelSO: {fileID: 11400000, guid: 6be0218d487744643b26282687832ff7, type: 2}
+  onAddItem: {fileID: 11400000, guid: b0fc090f8af0db34d9c3af8189508a82, type: 2}
   item: {fileID: 0}
   itemObject: {fileID: 0}
 --- !u!114 &6706680926121655791

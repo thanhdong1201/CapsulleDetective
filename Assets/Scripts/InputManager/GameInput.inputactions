@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenInventory",
+                    "name": "Tab",
                     "type": "Button",
                     "id": "53bab68e-4d3d-4ef4-94fd-c8e6e3f7b86e",
                     "expectedControlType": "Button",
@@ -262,7 +262,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse;KeyboardMouse",
-                    "action": "OpenInventory",
+                    "action": "Tab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -321,7 +321,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CloseInventory",
+                    "name": "CloseTab",
                     "type": "Button",
                     "id": "e73c23ea-b05f-4c2e-90fc-1f69d6ac6cc5",
                     "expectedControlType": "Button",
@@ -349,7 +349,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "CloseInventory",
+                    "action": "CloseTab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

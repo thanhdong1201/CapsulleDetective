@@ -5,5 +5,6 @@ public class DialogSO : ScriptableObject
 {
     [field: TextArea]
     [SerializeField] private string[] dialogs;
+
     public string[] GetDialogs() {  return dialogs; }
 }

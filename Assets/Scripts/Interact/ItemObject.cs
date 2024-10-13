@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemObject : InteractBase
 {
-    [SerializeField] private EventChannelSO eventChannelSO;
+    [SerializeField] private ItemEventChannelSO onAddItem;
     [SerializeField] private ItemSO item;
     [SerializeField] private GameObject itemObject;
 
@@ -14,7 +14,7 @@ public class ItemObject : InteractBase
     public override void Interact()
     {
         base.Interact();
-        eventChannelSO.RaiseEvent(item);
+        onAddItem?.RaiseEvent(item);
         SoundManager.PlaySound(SoundManager.SoundFX.PickUp);
         Destroy(itemObject);
     }
